@@ -16,9 +16,28 @@ export default function QueryProcessor(query: string): string {
       for (var i = 0; i < numbers.length; i++)
           numberArray.push(parseInt(numbers[i]));
       return (String(Math.max(...numberArray)));
-    } else {
-      return "";
+    } 
+  } else if (query.startsWith("What is ")) {
+    if (query.includes("plus")) {
+      var prefix: string = "What is ";
+      var newQuery: string = query.slice(prefix.length, -1);
+      var numbers: string[] = newQuery.split(" plus ", 2);
+      var numberArray = [];
+      for (var i = 0; i < numbers.length; i++)
+          numberArray.push(parseInt(numbers[i]));
+      return (String(numberArray[0] + numberArray[1]));
+    } else if (query.includes(" multiplied by ")) {
+      var prefix: string = "What is ";
+      var newQuery: string = query.slice(prefix.length, -1);
+      var numbers: string[] = newQuery.split(" multiplied by ", 2);
+      var numberArray = [];
+      for (var i = 0; i < numbers.length; i++)
+          numberArray.push(parseInt(numbers[i]));
+      return (String(numberArray[0] * numberArray[1]));
     }
+  } else {
+    return "";
   }
+  
   return "";
 }
