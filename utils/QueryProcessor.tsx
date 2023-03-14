@@ -21,11 +21,15 @@ export default function QueryProcessor(query: string): string {
     if (query.includes("plus")) {
       var prefix: string = "What is ";
       var newQuery: string = query.slice(prefix.length, -1);
-      var numbers: string[] = newQuery.split(" plus ", 2);
+      var numbers: string[] = newQuery.split(" plus ", 3);
       var numberArray = [];
       for (var i = 0; i < numbers.length; i++)
-          numberArray.push(parseInt(numbers[i]));
-      return (String(numberArray[0] + numberArray[1]));
+        numberArray.push(parseInt(numbers[i]));
+      if (numberArray.length == 2) {
+        return (String(numberArray[0] + numberArray[1]));
+      } else {
+        return (String(numberArray[0] + numberArray[1] + numberArray[2]));
+      }
     } else if (query.includes(" multiplied by ")) {
       var prefix: string = "What is ";
       var newQuery: string = query.slice(prefix.length, -1);
