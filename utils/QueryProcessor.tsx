@@ -42,6 +42,15 @@ export default function QueryProcessor(query: string): string {
       for (var i = 0; i < numbers.length; i++)
           numberArray.push(parseInt(numbers[i]));
       return (String(numberArray[0] - numberArray[1]));
+    } else if (query.includes(" to the power ")) {
+      var prefix: string = "What is ";
+      var newQuery: string = query.slice(prefix.length, -1);
+      var numbers: string[] = newQuery.split(" to the power of ", 2);
+      var numberArray = [];
+      for (var i = 0; i < numbers.length; i++)
+          numberArray.push(parseInt(numbers[i]));
+      return (String(numberArray[1]));
+      // return (String(Math.pow(numberArray[0], numberArray[1])));
     }
   
   } else if (query.startsWith("Which of the following numbers is both a square and a cube: ")) {
