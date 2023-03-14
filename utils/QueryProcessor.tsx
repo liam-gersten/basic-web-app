@@ -34,7 +34,28 @@ export default function QueryProcessor(query: string): string {
       for (var i = 0; i < numbers.length; i++)
           numberArray.push(parseInt(numbers[i]));
       return (String(numberArray[0] * numberArray[1]));
+    } else if (query.includes(" minus ")) {
+      var prefix: string = "What is ";
+      var newQuery: string = query.slice(prefix.length, -1);
+      var numbers: string[] = newQuery.split(" minus ", 2);
+      var numberArray = [];
+      for (var i = 0; i < numbers.length; i++)
+          numberArray.push(parseInt(numbers[i]));
+      return (String(numberArray[0] - numberArray[1]));
     }
+  
+  } else if (query.startsWith("Which of the following numbers is both a square and a cube: ")) {
+    var prefix: string = "Which of the following numbers is both a square and a cube: ";
+    var newQuery: string = query.slice(prefix.length, -1);
+    var numbers: string[] = newQuery.split(", ", 2);
+    for (var i = 0; i < numbers.length; i++)
+      if (Number.isInteger(Math.sqrt(parseInt(numbers[i])))) {
+        return (numbers[i]);
+        // if (Number.isInteger(Math.pow(parseInt(numbers[i]), 1/3))) {
+        //   return (numbers[i]);
+        // }
+      }
+    return (query);
   } else {
     return "";
   }
